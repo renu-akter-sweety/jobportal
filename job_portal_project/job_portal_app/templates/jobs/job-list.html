@@ -1,0 +1,51 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+<h1>Job List</h1>
+
+{% if request.user.user_type == 'Employer' %}
+<a href="{% url 'add_job' %}">Add Job</a>
+    
+{% endif %}
+
+
+{% include 'master/message.html' %}
+    
+
+<table>
+    <tr>
+        <th>SL</th>
+        <th>Job Title</th>
+        <th>Skills Required</th>
+        <th>Salary</th>
+        <th>Deadline</th>
+        <th>Action</th>
+    </tr>
+
+    
+    {% for job in job_data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{job.job_title}}</td>
+        <td>{{job.skills_required}}</td>
+        <td>{{job.salary}}</td>
+        <td>{{job.deadline}}</td>
+        <td>
+            
+            {% if request.user.user_type == 'Employer' %}
+            <a href="{% url 'update_job' job.id %}">Edit</a>
+            <a href="{% url 'delete_job' job.id %}">Delete</a>
+            <a href="{% url 'applicant_list' job.id %}">Applicant List</a>
+            {% else %}
+            <a href="{% url 'applied_job' job.id %}">Apply Now</a>
+            {% endif %}  
+        </td>
+
+    </tr>
+        
+    {% endfor %}
+        
+</table>
+
+{% endblock content %}
+    

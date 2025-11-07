@@ -1,0 +1,35 @@
+{% extends 'master/base.html' %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+  
+    
+    {% if request.user.user_type == 'Employer' %}
+    <label for="fname">Company Name</label>
+    <input type="text" id="fname" name="company_name" value="{{request.user.employer_profile.company_name}}" placeholder="Your company_name..">
+
+    <label for="fname">Address</label>
+    <input type="text" id="fname" name="address" value="{{request.user.employer_profile.address}}" placeholder="Your address..">
+    {% else %}
+    <label for="fname">Full Name</label>
+    <input type="text" id="fname" name="full_name" value="{{request.user.seeker_profile.full_name}}" placeholder="Your full_name..">
+
+    <label for="fname">Skills</label>
+    <input type="text" id="fname" name="skills" value="{{request.user.seeker_profile.skills}}" placeholder="Your skills..">
+    <label for="fname">Contact Number</label>
+    <input type="text" id="fname" name="contact_numer" value="{{request.user.seeker_profile.contact_numer}}" placeholder="Your contact_number..">
+
+    <label for="fname">Last Education</label>
+    <input type="text" id="fname" name="last_education" value="{{request.user.seeker_profile.last_education}}" placeholder="Your last_education..">
+
+
+    {% endif %}
+        
+
+  <input type="submit" value="Update">
+</form>
+
+{% endblock content %}
+    
